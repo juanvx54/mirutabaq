@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiRutaBAQ - Descubre Barranquilla de manera inteligente</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .mobile-menu {
+      transition: all 0.3s ease;
+    }
+    
+    .phone-mockup {
+      position: relative;
+      width: 280px;
+      height: 580px;
+      background-color: #111827;
+      border-radius: 40px;
+      overflow: hidden;
+      border: 8px solid #1f2937;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      margin: 0 auto;
+    }
+    
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 24px;
+      background-color: #1f2937;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .phone-notch-content {
+      width: 80px;
+      height: 16px;
+      background-color: #111827;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+    
+    .phone-screen {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      padding-top: 24px;
+    }
+    
+    .screen-indicator {
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+    
+    .screen-dot {
+      height: 8px;
+      border-radius: 9999px;
+      transition: all 0.3s;
+      background-color: #d1d5db;
+    }
+    
+    .screen-dot.active {
+      width: 24px;
+      background-color: #E31B23;
+    }
+    
+    .screen-dot.inactive {
+      width: 8px;
+    }
+    
+    .bg-gradient {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(to bottom right, rgba(227, 27, 35, 0.2), rgba(249, 229, 71, 0.2), rgba(0, 154, 61, 0.2));
+      border-radius: 9999px;
+      filter: blur(24px);
+      z-index: -10;
+    }
+    
+    @media (max-width: 768px) {
+      .bg-gradient {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-white">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <div class="h-8 w-8">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-04-03%20at%204.08.50%20PM-not2RFXdgDa8pJj94e4qlPsdyNobC7.jpeg" alt="MiRutaBAQ Logo" class="w-full h-full object-contain">
+        </div>
+        <h1 class="text-xl font-bold">MiRutaBAQ</h1>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="#features" class="text-gray-700 hover:text-[#E31B23]">Características</a>
+        <a href="#problem" class="text-gray-700 hover:text-[#E31B23]">Problema</a>
+        <a href="#objectives" class="text-gray-700 hover:text-[#E31B23]">Objetivos</a>
+        <a href="#contact" class="text-gray-700 hover:text-[#E31B23]">Contacto</a>
+        <button class="bg-[#E31B23] hover:bg-[#c01820] text-white px-4 py-2 rounded-md">Descargar App</button>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <button id="menuButton" class="p-2 text-gray-700 focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 z-50 bg-white hidden">
+      <div class="flex justify-end p-4">
+        <button id="closeMenuButton" class="p-2 text-gray-700 focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="flex flex-col items-center gap-8 p-8">
+        <a href="#features" class="text-xl text-gray-700 hover:text-[#E31B23]">Características</a>
+        <a href="#problem" class="text-xl text-gray-700 hover:text-[#E31B23]">Problema</a>
+        <a href="#objectives" class="text-xl text-gray-700 hover:text-[#E31B23]">Objetivos</a>
+        <a href="#contact" class="text-xl text-gray-700 hover:text-[#E31B23]">Contacto</a>
+        <button class="bg-[#E31B23] hover:bg-[#c01820] text-white w-full py-3 rounded-md mt-4">Descargar App</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="py-16 md:py-24 bg-gradient-to-br from-[#F9E547]/10 to-[#009A3D]/10">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+        <div class="md:w-1/2 space-y-6">
+          <div class="inline-block px-4 py-1 bg-[#F9E547]/20 text-[#E31B23] rounded-full font-medium">
+            Movilidad + Cultura
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+            Descubre Barranquilla de manera inteligente
+          </h1>
+          <p class="text-lg text-gray-600">
+            TuRutaBAQ integra transporte público en tiempo real con eventos culturales y lugares turísticos en una
+            sola aplicación.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button class="bg-[#E31B23] hover:bg-[#c01820] text-white px-6 py-6 rounded-md flex items-center justify-center">
+              Descargar Ahora
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+            </button>
+            <button class="border border-[#009A3D] text-[#009A3D] hover:bg-[#009A3D]/10 px-6 py-6 rounded-md flex items-center justify-center">
+              Conocer Más
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="md:w-1/2">
+          <!-- Phone Mockup -->
+          <div class="relative">
+            <div class="phone-mockup">
+              <div class="phone-notch">
+                <div class="phone-notch-content"></div>
+              </div>
+              <div class="phone-screen">
+                <div class="relative h-full w-full">
+                  <img src="https://placehold.co/300x600/111827/FFFFFF" alt="App Screen" class="w-full h-full object-cover">
+                  
+                  <!-- Logo overlay -->
+                  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] flex items-center justify-center">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-04-03%20at%204.08.50%20PM-not2RFXdgDa8pJj94e4qlPsdyNobC7.jpeg" alt="MiRutaBAQ Logo" class="w-full h-full object-contain">
+                  </div>
+                  
+                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <h3 class="text-white font-medium">Mapa de rutas</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="screen-indicator">
+              <button class="screen-dot active" aria-label="Ver pantalla 1"></button>
+              <button class="screen-dot inactive" aria-label="Ver pantalla 2"></button>
+              <button class="screen-dot inactive" aria-label="Ver pantalla 3"></button>
+            </div>
+            
+            <div class="bg-gradient"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold mb-4">Todo lo que necesitas en una sola app</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          TuRutaBAQ ofrece una experiencia integral para residentes y turistas de Barranquilla.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Feature 1 -->
+        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="h-12 w-12 rounded-lg bg-[#E31B23]/10 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#E31B23]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Transporte en tiempo real</h3>
+          <p class="text-gray-600">Consulta rutas y horarios actualizados del transporte público en Barranquilla.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="h-12 w-12 rounded-lg bg-[#F9E547]/10 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#F9E547]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Eventos culturales</h3>
+          <p class="text-gray-600">Accede a un calendario completo de eventos y actividades en la ciudad.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="h-12 w-12 rounded-lg bg-[#009A3D]/10 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#009A3D]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Mapas interactivos</h3>
+          <p class="text-gray-600">Explora lugares turísticos y puntos de interés con mapas detallados.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="h-12 w-12 rounded-lg bg-[#E31B23]/10 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#E31B23]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Recomendaciones personalizadas</h3>
+          <p class="text-gray-600">Recibe sugerencias adaptadas a tus intereses y disponibilidad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section id="problem" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+          <div class="relative h-[400px] w-full rounded-xl overflow-hidden shadow-xl bg-white">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%2010%20abr%202025%2C%2014_30_48-Mr1vWfy4bo2FIlO79w1SxqsLrIkWhm.png" alt="Problema de movilidad en Barranquilla" class="w-full h-full object-contain p-4">
+          </div>
+        </div>
+        <div class="md:w-1/2 space-y-6">
+          <h2 class="text-3xl font-bold">El problema que resolvemos</h2>
+          <p class="text-gray-600">
+            Actualmente, la información sobre transporte y eventos en Barranquilla está dispersa en múltiples
+            plataformas no siempre actualizadas. Esto genera:
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <div class="h-6 w-6 rounded-full bg-[#E31B23] flex items-center justify-center mt-1">
+                <span class="text-white text-sm">1</span>
+              </div>
+              <p>Desinformación sobre rutas y horarios de transporte</p>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="h-6 w-6 rounded-full bg-[#F9E547] flex items-center justify-center mt-1">
+                <span class="text-gray-800 text-sm">2</span>
+              </div>
+              <p>Pérdida de tiempo buscando información en diferentes fuentes</p>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="h-6 w-6 rounded-full bg-[#009A3D] flex items-center justify-center mt-1">
+                <span class="text-white text-sm">3</span>
+              </div>
+              <p>Dificultad para planificar actividades culturales y turísticas</p>
+            </li>
+          </ul>
+          <button class="bg-[#E31B23] hover:bg-[#c01820] text-white px-4 py-2 rounded-md">Conoce nuestra solución</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Objectives Section -->
+  <section id="objectives" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Objetivos del proyecto</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          TuRutaBAQ busca transformar la experiencia de movilidad y acceso cultural en Barranquilla.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Objective 1 -->
+        <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="h-12 w-12 rounded-lg bg-[#E31B23]/10 flex items-center justify-center mb-6">
+            <div class="h-6 w-6 rounded-full bg-[#E31B23] flex items-center justify-center">
+              <span class="text-white text-sm">1</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Centralizar información</h3>
+          <p class="text-gray-600">
+            Desarrollar una app intuitiva que centralice datos confiables sobre movilidad y cultura en Barranquilla.
+          </p>
+        </div>
+
+        <!-- Objective 2 -->
+        <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="h-12 w-12 rounded-lg bg-[#F9E547]/10 flex items-center justify-center mb-6">
+            <div class="h-6 w-6 rounded-full bg-[#F9E547] flex items-center justify-center">
+              <span class="text-gray-800 text-sm">2</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Integrar servicios</h3>
+          <p class="text-gray-600">
+            Integrar mapas, calendarios y rutas para facilitar la experiencia urbana de residentes y turistas.
+          </p>
+        </div>
+
+        <!-- Objective 3 -->
+        <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="h-12 w-12 rounded-lg bg-[#009A3D]/10 flex items-center justify-center mb-6">
+            <div class="h-6 w-6 rounded-full bg-[#009A3D] flex items-center justify-center">
+              <span class="text-white text-sm">3</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Personalizar experiencias</h3>
+          <p class="text-gray-600">
+            Ofrecer recomendaciones personalizadas conectadas con el transporte público disponible.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2 space-y-6">
+          <h2 class="text-3xl font-bold">Viabilidad técnica</h2>
+          <p class="text-gray-600">
+            TuRutaBAQ ha sido diseñado con tecnologías accesibles y seguras para garantizar su funcionamiento
+            óptimo.
+          </p>
+
+          <div class="space-y-4">
+            <div class="bg-white p-4 rounded-lg border border-gray-100">
+              <h3 class="font-semibold mb-2 flex items-center">
+                <div class="h-4 w-4 rounded-full bg-[#E31B23] mr-2"></div>
+                Tecnologías
+              </h3>
+              <p class="text-gray-600 text-sm">
+                Python (Flask/Django), Flutter, Google Maps API y GTFS para datos de transporte.
+              </p>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg border border-gray-100">
+              <h3 class="font-semibold mb-2 flex items-center">
+                <div class="h-4 w-4 rounded-full bg-[#F9E547] mr-2"></div>
+                Seguridad
+              </h3>
+              <p class="text-gray-600 text-sm">
+                Cifrado de datos y autenticación de dos factores para proteger la información de los usuarios.
+              </p>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg border border-gray-100">
+              <h3 class="font-semibold mb-2 flex items-center">
+                <div class="h-4 w-4 rounded-full bg-[#009A3D] mr-2"></div>
+                Mitigación de riesgos
+              </h3>
+              <p class="text-gray-600 text-sm">
+                Estrategias para abordar la baja adopción, problemas de usabilidad y desactualización de datos.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:w-1/2">
+          <div class="relative h-[400px] w-full rounded-xl overflow-hidden shadow-xl bg-white">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%2010%20abr%202025%2C%2016_32_26-UAMdvee7vEI9FXZ1F7Lyc8ZrtMNAE5.png" alt="Seguridad y protección de datos" class="w-full h-full object-contain p-4">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="contact" class="py-16 bg-[#E31B23]">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-white mb-6">¿Listo para mejorar tu experiencia en Barranquilla?</h2>
+      <p class="text-white/80 max-w-2xl mx-auto mb-8">
+        TuRutaBAQ es una solución viable, necesaria e innovadora con potencial para transformar la movilidad y el
+        acceso cultural en la ciudad.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="bg-white text-[#E31B23] hover:bg-gray-100 px-8 py-6 rounded-md">Descargar App</button>
+        <button class="border border-white text-white hover:bg-white/10 px-8 py-6 rounded-md">Contactar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between">
+        <div class="mb-8 md:mb-0">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="h-8 w-8">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-04-03%20at%204.08.50%20PM-not2RFXdgDa8pJj94e4qlPsdyNobC7.jpeg" alt="MiRutaBAQ Logo" class="w-full h-full object-contain">
+            </div>
+            <h1 class="text-xl font-bold">MiRutaBAQ</h1>
+          </div>
+          <p class="text-gray-400 max-w-md">
+            Una solución innovadora para mejorar la movilidad urbana y el acceso a información cultural y turística
+            en Barranquilla.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="font-semibold mb-4">Producto</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Características</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Descargar</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Precios</a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-semibold mb-4">Empresa</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Sobre nosotros</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Contacto</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Inversionistas</a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-semibold mb-4">Legal</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Términos</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Privacidad</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm">© 2025 TuRutaBAQ. Todos los derechos reservados.</p>
+        <div class="flex gap-4 mt-4 md:mt-0">
+          <a href="#" class="text-gray-400 hover:text-white">
+            <span class="sr-only">Facebook</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white">
+            <span class="sr-only">Instagram</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white">
+            <span class="sr-only">Twitter</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu functionality
+    const menuButton = document.getElementById('menuButton');
+    const closeMenuButton = document.getElementById('closeMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('hidden');
+    });
+    
+    closeMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+    });
+    
+    // Phone screen rotation
+    const screens = [
+      {
+        title: "Mapa de rutas",
+        image: "https://placehold.co/300x600/111827/FFFFFF",
+      },
+      {
+        title: "Eventos culturales",
+        image: "https://placehold.co/300x600/111827/FFFFFF",
+      },
+      {
+        title: "Lugares turísticos",
+        image: "https://placehold.co/300x600/111827/FFFFFF",
+      }
+    ];
+    
+    let activeScreen = 0;
+    const phoneScreen = document.querySelector('.phone-screen');
+    const screenDots = document.querySelectorAll('.screen-dot');
+    
+    function updateScreen() {
+      const screenContent = phoneScreen.querySelector('.relative');
+      const screenImage = screenContent.querySelector('img');
+      const screenTitle = screenContent.querySelector('h3');
+      
+      screenImage.src = screens[activeScreen].image;
+      screenTitle.textContent = screens[activeScreen].title;
+      
+      // Update indicators
+      screenDots.forEach((dot, index) => {
+        if (index === activeScreen) {
+          dot.classList.add('active');
+          dot.classList.remove('inactive');
+        } else {
+          dot.classList.remove('active');
+          dot.classList.add('inactive');
+        }
+      });
+    }
+    
+    // Set up screen rotation
+    setInterval(() => {
+      activeScreen = (activeScreen + 1) % screens.length;
+      updateScreen();
+    }, 3000);
+    
+    // Allow clicking on dots to change screen
+    screenDots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        activeScreen = index;
+        updateScreen();
+      });
+    });
+  </script>
+</body>
+</html>
